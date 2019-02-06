@@ -1,0 +1,33 @@
+{
+  "name": "mmo-discord-bot",
+  "description": "Default template for JavaScript bot",
+  "version": "1.0.0.alpha.1",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dischanet/mmo-discord-bot.git"
+  },
+  "author": "dischanet",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/dischanet/mmo-discord-bot/issues"
+  },
+  "homepage": "https://github.com/dischanet/mmo-discord-bot#readme",
+  "scripts": {
+    "start": "node ./src/index.js",
+    "lint": "eslint --fix --ext .js .",
+    "precommit": "pretty-quick --staged"
+  },
+  "dependencies": {
+    "discord.js": "^11.4.2",
+    "sqlite3": "^4.0.6"
+  },
+  "devDependencies": {
+    "eslint": "^5.12.1",
+    "eslint-config-prettier": "^3.6.0",
+    "eslint-config-problems": "^2.0.0",
+    "eslint-plugin-prettier": "^3.0.1",
+    "prettier": "^1.16.0",
+    "pretty-quick": "^1.10.0"
+  }
+}

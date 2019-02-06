@@ -1,0 +1,14 @@
+[Unit]
+Description=JavaScript Discord Bot Agent
+After=network.target
+
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/npm start
+WorkingDirectory=/home/ec2-user/repos/mmo-discord-bot
+EnvironmentFile=/home/ec2-user/repos/mmo-discord-bot/environment
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
