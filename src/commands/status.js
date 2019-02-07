@@ -1,11 +1,7 @@
 module.exports = async (client, message, db) => {
-  const {
-    getPlayerExp,
-    getPlayerBattle,
-    getRank,
-    getItems,
-    deleteInBattle
-  } = require("../db")(db);
+  const { getPlayerExp, getPlayerBattle, getRank, getItems } = require("../db")(
+    db
+  );
 
   const userId = message.author.id;
   const playerExp = await getPlayerExp(userId);
@@ -19,12 +15,12 @@ module.exports = async (client, message, db) => {
     itemComment += "【サポーターの証】を持っている。\n";
 
   let statusComment = `<@${userId}>のステータス\n
-  Lv: ${playerLevel}\n
-  HP: ${playerLevel * 5 + 50} \n
-  攻撃力: ${playerLevel * 2 + 10}\n
-  EXP: ${playerExp}\n
-  次のレベルまで ${(playerLevel + 1) ** 2 - playerExp}exp\n
-  ${itemComment}\n
+  Lv: ${playerLevel}
+  HP: ${playerLevel * 5 + 50}
+  攻撃力: ${playerLevel * 2 + 10}
+  EXP: ${playerExp}
+  次のレベルまで ${(playerLevel + 1) ** 2 - playerExp}exp
+  ${itemComment}
   プレイヤーランクは${rank}位だ！`;
 
   const PlayerInBattle = await getPlayerBattle(userId);
@@ -35,18 +31,18 @@ module.exports = async (client, message, db) => {
         ? `${battleChannel.guild.name}の#${battleChannel.name}`
         : "個人チャット";
 
-      statusComment = `<@${userId}>のステータス\n
-            Lv: ${playerLevel}\n
-            HP: ${PlayerInBattle.playerHp} / ${playerLevel * 5 + 50}\n
-            攻撃力: ${playerLevel * 2 + 10}\n
-            EXP: ${playerExp}\n
-            次のレベルまで ${(playerLevel + 1) ** 2 - playerExp}exp\n
-            \n
-            ${battleField}で戦闘中！\n
-            ${itemComment}\n
+      statusComment = `<@${userId}>のステータス
+            Lv: ${playerLevel}
+            HP: ${PlayerInBattle.playerHp} / ${playerLevel * 5 + 50}
+            攻撃力: ${playerLevel * 2 + 10}
+            EXP: ${playerExp}
+            次のレベルまで ${(playerLevel + 1) ** 2 - playerExp}exp
+            
+            ${battleField}で戦闘中！
+            ${itemComment}
             プレイヤーランクは${rank}位だ！`;
     } else {
-      await deleteInBattle(battleChannel.id);
+      // await deleteInBattle(PlayerInBattle.channelId);
     }
   }
 
