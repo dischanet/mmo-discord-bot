@@ -1,4 +1,4 @@
-module.exports = (client, message, db) => {
+module.exports = async (client, message, db) => {
   const {
     getPlayerExp,
     getPlayerBattle,
@@ -8,12 +8,12 @@ module.exports = (client, message, db) => {
   } = require("../db")(db);
 
   const userId = message.author.id;
-  const playerExp = getPlayerExp(userId);
+  const playerExp = await getPlayerExp(userId);
   const playerLevel = Math.round(Math.sqrt(playerExp));
-  const rank = getRank(userId);
+  const rank = await getRank(userId);
 
   let itemComment = "";
-  const playerItems = getItems(userId);
+  const playerItems = await getItems(userId);
   if (playerItems.includes(-10)) itemComment += "【運営の証】を持っている。\n";
   if (playerItems.includes(-9))
     itemComment += "【サポーターの証】を持っている。\n";
@@ -27,7 +27,7 @@ module.exports = (client, message, db) => {
   ${itemComment}\n
   プレイヤーランクは${rank}位だ！`;
 
-  const PlayerInBattle = getPlayerBattle(userId);
+  const PlayerInBattle = await getPlayerBattle(userId);
   if (PlayerInBattle) {
     const battleChannel = client.channels.get(PlayerInBattle.channelId);
     if (battleChannel) {
@@ -46,7 +46,7 @@ module.exports = (client, message, db) => {
             ${itemComment}\n
             プレイヤーランクは${rank}位だ！`;
     } else {
-      deleteInBattle(battleChannel.id);
+      await deleteInBattle(battleChannel.id);
     }
   }
 
