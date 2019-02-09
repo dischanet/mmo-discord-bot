@@ -1,4 +1,4 @@
-const defaultHelp = {
+const baseHelp = {
   embed: {
     title: "Botの説明  :question:",
     description: "MMOくんはみんなでボスを倒して行くRPGです。",
@@ -8,8 +8,8 @@ const defaultHelp = {
       { name: "status", value: "自分のステータスを確認する" },
       { name: "inquiry", value: "チャンネルのバトルの状態を確認する" },
       { name: "reset", value: "戦いをやり直す" },
-      { name: "t", value: "トレーニングをする" },
-      { name: "q", value: "トレーニングをする" },
+      { name: "t", value: "四字熟語トレーニングをする" },
+      { name: "q", value: "クイズトレーニングをする" },
       { name: "item", value: "アイテムを使う" },
       { name: "ranking", value: "上位10サーバーのランキングを表示する" }
     ],
@@ -18,7 +18,7 @@ const defaultHelp = {
   }
 };
 
-const helpList = {
+const commandDetails = {
   help: "ヘルプメッセージを表示します。",
   attack: "チャンネル内の敵に攻撃します。敵の反撃を受けます。",
   status: "自分のステータスを確認する。",
@@ -37,35 +37,30 @@ const itemList = [
   { name: "サポーターの証", value: "MMOくんをサポートしてくれた証だ！" }
 ];
 
-module.exports = (client, message, db) => {
-  const argument = message.content.split(" ");
-
-  if (argument.length === 2) {
-    const helpMessage = helpList[argument[1]];
-
-    if (!helpMessage) {
-      return message.channel.send(
-        `「${
-          argument[1]
-        }」といったコマンドは存在しません。\n \`!!help\`で確認してください。`
-      );
-    }
-
-    /*global help*/
-    help = {
-      embed: {
-        title: `${argument[1]}の詳細`,
-        description: helpMessage,
-        color: 0x50e3c2
-      }
-    };
-
-    if (argument[1] === "item") {
-      help.embed.fields = itemList;
-    }
-
-    message.channel.send(help);
-  } else {
-    message.channel.send(defaultHelp);
+const eachCommandHelp = askedCommand => {
+  const embed = {
+    title: `${askedCommand}の詳細`,
+    description: commandDetails[askedCommand],
+    color: 0x50e3c2
+  };
+  if (askedCommand === "item") {
+    embed.fields = itemList;
   }
+  return { embed };
 };
+
+const help = messageContent => {
+  const args = messageContent.split(" ");
+  if (args.length < 2) {
+    return baseHelp;
+  }
+  const askedCommand = args[1];
+  if (commandDetails.hasOwnProperty(askedCommand)) {
+    return eachCommandHelp(askedCommand);
+  }
+  return `「${askedCommand}」というコマンドは存在しません。
+  \`!!help\`で確認してください。`;
+};
+
+module.exports = (client, message) =>
+  message.channel.send(help(message.content));
