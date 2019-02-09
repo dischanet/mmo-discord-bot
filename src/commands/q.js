@@ -26,7 +26,7 @@ module.exports = (client, message, db) => {
       message.channel.awaitMessages(filter, { maxMatches: 1, time: 10000, errors: ["time"] })
         .then(guess => {
           if (isFinite(guess.content) && Number(guess) === answerNum) {
-            //            let comment = experiment(user.id, exp)
+            //            let comment = experiment(user.id, exp);
             if (Math.random() < 0.005) {
               comment += "\n`エリクサー`を手に入れた！";
               //              obtainAnItem(user.id, 1);
@@ -39,9 +39,9 @@ module.exports = (client, message, db) => {
               comment += "\n`祈りの書`を手に入れた！";
               //              obtainAnItem(user.id, 3);
             }
-            message.channel.send(`正解だ！${exp}の経験値を得た。\n` + comment)
+            message.channel.send(`正解だ！${exp}の経験値を得た。\n` + comment);
           } else {
-            message.channel.send(`残念！正解は「${quiz.ans1}」だ。`)
+            message.channel.send(`残念！正解は「${quiz.ans1}」だ。`);
           }
         })
         .catch(() => message.channel.send(`時間切れだ。正解は「${quiz.ans1}」だ。`));
