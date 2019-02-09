@@ -8,7 +8,8 @@ const defaultHelp = {
       { name: "status", value: "自分のステータスを確認する" },
       { name: "inquiry", value: "チャンネルのバトルの状態を確認する" },
       { name: "reset", value: "戦いをやり直す" },
-      { name: "t\t\t\tq", value: "トレーニングをする"},
+      { name: "t", value: "トレーニングをする" },
+      { name: "q", value: "トレーニングをする" },
       { name: "item", value: "アイテムを使う" },
       { name: "ranking", value: "上位10サーバーのランキングを表示する" }
     ],
@@ -17,14 +18,54 @@ const defaultHelp = {
   }
 };
 
+const help_list = {
+  help: "ヘルプメッセージを表示します。",
+  attack: "チャンネル内の敵に攻撃します。敵の反撃を受けます。",
+  status: "自分のステータスを確認する。",
+  inquiry: "チャンネルのバトルの状態を確認する。",
+  reset: "戦いをやり直す。",
+  t: "四字熟語の読み方をひらがなで入力し、正解すると経験値がもらえるぞ。",
+  q: "クイズに解答し、正解すると経験値がもらえるぞ。",
+  item: "itemを使う\nアイテム一覧",
+  ranking: "上位10サーバーのランキングを表示する"
+};
 
+const item_list = [
+  { name: "エリクサー", value: "チャンネルの全員を全回復させる。" },
+  { name: "ファイアボールの書", value: "遠隔攻撃する。" },
+  { name: "祈りの書", value: "仲間一人を復活させる。" },
+  { name: "サポーターの証", value: "MMOくんをサポートしてくれた証だ！" }
+];
 
 module.exports = (client, message, db) => {
   const argument = message.content.split(" ");
 
   if (argument.length === 2) {
+    const help_msg = help_list[argument[1]];
 
-  }eles{
+    if (!help_msg) {
+      return message.channel.send(
+        `「${
+          argument[1]
+        }」といったコマンドは存在しません。\n \`!!help\`で確認してください。`
+      );
+    }
+
+    /*global help*/
+    help = {
+      embed: {
+        title: `${argument[1]}の詳細`,
+        description: help_msg,
+        color: 0x50e3c2
+      }
+    };
+
+    if (argument[1] === "item") {
+      help.embed.fields = item_list;
+    }
+
+    message.channel.send(help);
+  } else {
     message.channel.send(defaultHelp);
   }
 };
