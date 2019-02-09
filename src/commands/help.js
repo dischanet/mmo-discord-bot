@@ -18,7 +18,7 @@ const defaultHelp = {
   }
 };
 
-const help_list = {
+const helpList = {
   help: "ヘルプメッセージを表示します。",
   attack: "チャンネル内の敵に攻撃します。敵の反撃を受けます。",
   status: "自分のステータスを確認する。",
@@ -30,7 +30,7 @@ const help_list = {
   ranking: "上位10サーバーのランキングを表示する"
 };
 
-const item_list = [
+const itemList = [
   { name: "エリクサー", value: "チャンネルの全員を全回復させる。" },
   { name: "ファイアボールの書", value: "遠隔攻撃する。" },
   { name: "祈りの書", value: "仲間一人を復活させる。" },
@@ -41,9 +41,9 @@ module.exports = (client, message, db) => {
   const argument = message.content.split(" ");
 
   if (argument.length === 2) {
-    const help_msg = help_list[argument[1]];
+    const helpMessage = helpList[argument[1]];
 
-    if (!help_msg) {
+    if (!helpMessage) {
       return message.channel.send(
         `「${
           argument[1]
@@ -55,13 +55,13 @@ module.exports = (client, message, db) => {
     help = {
       embed: {
         title: `${argument[1]}の詳細`,
-        description: help_msg,
+        description: helpMessage,
         color: 0x50e3c2
       }
     };
 
     if (argument[1] === "item") {
-      help.embed.fields = item_list;
+      help.embed.fields = itemList;
     }
 
     message.channel.send(help);
