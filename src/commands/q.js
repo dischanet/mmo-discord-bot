@@ -23,7 +23,7 @@ module.exports = (client, message, db) => {
       const answerNum = quizSet.indexOf(quiz.ans1) + 1;
       //      const exp = math.ceil(getPlayerLevel(message.user.id) / 10);
       const filter = m => m.author === user;
-      message.channel.awaitMessages(filter, { time: 10000, errors: ["time"] })
+      message.channel.awaitMessages(filter, { maxMatches: 1, time: 10000, errors: ["time"] })
         .then(guess => {
           if (isFinite(guess.content) && Number(guess) === answerNum) {
             //            let comment = experiment(user.id, exp)
