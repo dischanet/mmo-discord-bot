@@ -1,0 +1,359 @@
+[
+  {
+    "name": "【超強敵！！】デュラハン",
+    "hp_co": 0,
+    "dmg_co": 1,
+    "quote": "...",
+    "img": "dullahan.png"
+  },
+  {
+    "name": "スライム",
+    "hp_co": 1,
+    "dmg_co": 1,
+    "quote": "...",
+    "img": "sraim.png"
+  },
+  {
+    "name": "コウモリ",
+    "hp_co": 2,
+    "dmg_co": 1,
+    "quote": "バサッバサッ...",
+    "img": "bat.png"
+  },
+  {
+    "name": "ファラオ",
+    "hp_co": 3,
+    "dmg_co": 1,
+    "quote": "...",
+    "img": "farao_white.png"
+  },
+  {
+    "name": "ゴブリン",
+    "hp_co": 4,
+    "dmg_co": 1,
+    "quote": "...",
+    "img": "goburin.png"
+  },
+  {
+    "name": "【強敵】クラーケン",
+    "hp_co": 5,
+    "dmg_co": 1,
+    "quote": "...",
+    "img": "kraken.png"
+  },
+  {
+    "name": "アクマ",
+    "hp_co": 6,
+    "dmg_co": 1,
+    "quote": "...",
+    "img": "akuma.png"
+  },
+  {
+    "name": "ハーピィ",
+    "hp_co": 7,
+    "dmg_co": 1,
+    "quote": "...",
+    "img": "harpy.png"
+  },
+  {
+    "name": "妖刀",
+    "hp_co": 8,
+    "dmg_co": 1,
+    "quote": "...",
+    "img": "katana.png"
+  },
+  {
+    "name": "マタンゴ",
+    "hp_co": 9,
+    "dmg_co": 1,
+    "quote": "...",
+    "img": "kinoko.png"
+  },
+  {
+    "name": "【強敵】ベリアル",
+    "hp_co": 10,
+    "dmg_co": 1,
+    "quote": "...",
+    "img": "belial.png"
+  },
+  {
+    "name": "鎧兵",
+    "hp_co": 11,
+    "dmg_co": 1,
+    "quote": "...",
+    "img": "knight.png"
+  },
+  {
+    "name": "タランチュラ",
+    "hp_co": 12,
+    "dmg_co": 1,
+    "quote": "...",
+    "img": "tarantula.png"
+  },
+  {
+    "name": "アーリマン",
+    "hp_co": 13,
+    "dmg_co": 1,
+    "quote": "...",
+    "img": "ahriman.png"
+  },
+  {
+    "name": "マミー",
+    "hp_co": 14,
+    "dmg_co": 1,
+    "quote": "...",
+    "img": "mummy.png"
+  },
+  {
+    "name": "【強敵】ドラグーン",
+    "hp_co": 15,
+    "dmg_co": 1,
+    "quote": "...",
+    "img": "dragoon.png"
+  },
+  {
+    "name": "ワーム",
+    "hp_co": 16,
+    "dmg_co": 1,
+    "quote": "...",
+    "img": "earth_worm.png"
+  },
+  {
+    "name": "モアイ",
+    "hp_co": 17,
+    "dmg_co": 1,
+    "quote": "バサッバサッ...",
+    "img": "moai.png"
+  },
+  {
+    "name": "悪魔の人形",
+    "hp_co": 18,
+    "dmg_co": 1,
+    "quote": "...",
+    "img": "devildoll_bk.png"
+  },
+  {
+    "name": "アラウルネ",
+    "hp_co": 19,
+    "dmg_co": 1,
+    "quote": "...",
+    "img": "alraune.png"
+  },
+  {
+    "name": "【強敵！】極楽鳥",
+    "hp_co": 20,
+    "dmg_co": 1,
+    "quote": "...",
+    "img": "condor.png"
+  },
+  {
+    "name": "悪魔のタネ",
+    "hp_co": 21,
+    "dmg_co": 1,
+    "quote": "...",
+    "img": "seed.png"
+  },
+  {
+    "name": "ヤドカリ",
+    "hp_co": 22,
+    "dmg_co": 1,
+    "quote": "...",
+    "img": "yadokari.png"
+  },
+  {
+    "name": "オウム",
+    "hp_co": 23,
+    "dmg_co": 1,
+    "quote": "...",
+    "img": "oumu.png"
+  },
+  {
+    "name": "ゴースト",
+    "hp_co": 24,
+    "dmg_co": 1,
+    "quote": "...",
+    "img": "ghost_white.png"
+  },
+  {
+    "name": "【強敵】インキュバス",
+    "hp_co": 25,
+    "dmg_co": 1,
+    "quote": "...",
+    "img": "incubus.png"
+  },
+  {
+    "name": "スカルヘッド",
+    "hp_co": 26,
+    "dmg_co": 1,
+    "quote": "...",
+    "img": "skull.png"
+  },
+  {
+    "name": "ポット",
+    "hp_co": 27,
+    "dmg_co": 1,
+    "quote": "バサッバサッ...",
+    "img": "pot.png"
+  },
+  {
+    "name": "デビルポット",
+    "hp_co": 28,
+    "dmg_co": 1,
+    "quote": "...",
+    "img": "pot2.png"
+  },
+  {
+    "name": "クラブ",
+    "hp_co": 29,
+    "dmg_co": 1,
+    "quote": "...",
+    "img": "crab.png"
+  },
+  {
+    "name": "【強敵】アークデーモン",
+    "hp_co": 30,
+    "dmg_co": 1,
+    "quote": "...",
+    "img": "arc_demon.png"
+  },
+  {
+    "name": "石の精霊",
+    "hp_co": 31,
+    "dmg_co": 1,
+    "quote": "...",
+    "img": "el_stone.png"
+  },
+  {
+    "name": "マイマイ",
+    "hp_co": 32,
+    "dmg_co": 1,
+    "quote": "...",
+    "img": "maimai.png"
+  },
+  {
+    "name": "マッドハンド",
+    "hp_co": 33,
+    "dmg_co": 1,
+    "quote": "...",
+    "img": "hand.png"
+  },
+  {
+    "name": "パピヨン",
+    "hp_co": 34,
+    "dmg_co": 1,
+    "quote": "...",
+    "img": "papillon.png"
+  },
+  {
+    "name": "【強敵】スプリガン",
+    "hp_co": 35,
+    "dmg_co": 1,
+    "quote": "...",
+    "img": "spriggans.png"
+  },
+  {
+    "name": "オーガ",
+    "hp_co": 36,
+    "dmg_co": 1,
+    "quote": "...",
+    "img": "ogre.png"
+  },
+  {
+    "name": "ノミ",
+    "hp_co": 37,
+    "dmg_co": 1,
+    "quote": "...",
+    "img": "flea.png"
+  },
+  {
+    "name": "リッチ",
+    "hp_co": 38,
+    "dmg_co": 1,
+    "quote": "...",
+    "img": "ricchi.png"
+  },
+  {
+    "name": "ボール",
+    "hp_co": 39,
+    "dmg_co": 1,
+    "quote": "...",
+    "img": "machine_ball.png"
+  },
+  {
+    "name": "【強敵！】ワイバーン",
+    "hp_co": 40,
+    "dmg_co": 1,
+    "quote": "...",
+    "img": "wyvern.png"
+  },
+  {
+    "name": "タンク",
+    "hp_co": 41,
+    "dmg_co": 1,
+    "quote": "...",
+    "img": "tank.png"
+  },
+  {
+    "name": "ホビット",
+    "hp_co": 42,
+    "dmg_co": 1,
+    "quote": "...",
+    "img": "hobit.png"
+  },
+  {
+    "name": "パンプキン",
+    "hp_co": 43,
+    "dmg_co": 1,
+    "quote": "...",
+    "img": "kabocha.png"
+  },
+  {
+    "name": "ラフレシア",
+    "hp_co": 44,
+    "dmg_co": 1,
+    "quote": "...",
+    "img": "rafflesia.png"
+  },
+  {
+    "name": "【強敵】Tレックス",
+    "hp_co": 45,
+    "dmg_co": 1,
+    "quote": "...",
+    "img": "t-rex.png"
+  },
+  {
+    "name": "ノミ",
+    "hp_co": 46,
+    "dmg_co": 1,
+    "quote": "...",
+    "img": "flea.png"
+  },
+  {
+    "name": "ノミ",
+    "hp_co": 47,
+    "dmg_co": 1,
+    "quote": "...",
+    "img": "flea.png"
+  },
+  {
+    "name": "ノミ",
+    "hp_co": 48,
+    "dmg_co": 1,
+    "quote": "...",
+    "img": "flea.png"
+  },
+  {
+    "name": "ノミ",
+    "hp_co": 49,
+    "dmg_co": 1,
+    "quote": "...",
+    "img": "flea.png"
+  },
+  {
+    "name": "【レア】キケロ",
+    "hp_co": 50,
+    "dmg_co": 1,
+    "quote": "...",
+    "img": "cicero.png"
+  }
+]
