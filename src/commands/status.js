@@ -58,4 +58,4 @@ const statusMessage = async (client, message, db) => {
 };
 
 module.exports = async (client, message, db) =>
-  message.channel.send(statusMessage(client, message, db));
+  message.channel.send(await statusMessage(client, message, db));
