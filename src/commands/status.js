@@ -29,9 +29,14 @@ const statusMessage = async (client, message, db) => {
   const playerExp = await db.getPlayerExp(userId);
   const playerLevel = Math.round(Math.sqrt(playerExp));
   const rank = await db.getPlayerRank(userId);
-  const itemMessage = getItemMessage(db, userId);
+  const itemMessage = await getItemMessage(db, userId);
   const maxHp = playerLevel * 5 + 50;
-  const { currentHp, battleField } = getButtleData(client, db, userId, maxHp);
+  const { currentHp, battleField } = await getButtleData(
+    client,
+    db,
+    userId,
+    maxHp
+  );
 
   return {
     embed: {
