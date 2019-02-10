@@ -1,29 +1,25 @@
 module.exports = async (client, message, db) => {
-  const { getPlayerExp, getPlayerBattle, getRank, getItems } = require("../db")(
-    db
-  );
-
   const userId = message.author.id;
-  const playerExp = await getPlayerExp(userId);
+  const playerExp = await db.getPlayerExp(userId);
   const playerLevel = Math.round(Math.sqrt(playerExp));
-  const rank = await getRank(userId);
+  const rank = await db.getRank(userId);
 
   let itemComment = "";
-  const playerItems = await getItems(userId);
+  const playerItems = await db.getItems(userId);
   if (playerItems.includes(-10)) itemComment += "【運営の証】を持っている。\n";
   if (playerItems.includes(-9))
     itemComment += "【サポーターの証】を持っている。\n";
 
-  let statusComment = `<@${userId}>のステータス\n
-  Lv: ${playerLevel}
-  HP: ${playerLevel * 5 + 50}
-  攻撃力: ${playerLevel * 2 + 10}
-  EXP: ${playerExp}
-  次のレベルまで ${(playerLevel + 1) ** 2 - playerExp}exp
-  ${itemComment}
-  プレイヤーランクは${rank}位だ！`;
+  let statusComment = `<@${userId}>のステータス
+Lv: ${playerLevel}
+HP: ${playerLevel * 5 + 50}
+攻撃力: ${playerLevel * 2 + 10}
+EXP: ${playerExp}
+次のレベルまで ${(playerLevel + 1) ** 2 - playerExp}exp
+${itemComment}
+プレイヤーランクは${rank}位だ！`;
 
-  const PlayerInBattle = await getPlayerBattle(userId);
+  const PlayerInBattle = await db.getPlayerBattle(userId);
   if (PlayerInBattle) {
     const battleChannel = client.channels.get(PlayerInBattle.channelId);
     if (battleChannel) {
@@ -32,15 +28,15 @@ module.exports = async (client, message, db) => {
         : "個人チャット";
 
       statusComment = `<@${userId}>のステータス
-            Lv: ${playerLevel}
-            HP: ${PlayerInBattle.playerHp} / ${playerLevel * 5 + 50}
-            攻撃力: ${playerLevel * 2 + 10}
-            EXP: ${playerExp}
-            次のレベルまで ${(playerLevel + 1) ** 2 - playerExp}exp
-            
-            ${battleField}で戦闘中！
-            ${itemComment}
-            プレイヤーランクは${rank}位だ！`;
+Lv: ${playerLevel}
+HP: ${PlayerInBattle.playerHp} / ${playerLevel * 5 + 50}
+攻撃力: ${playerLevel * 2 + 10}
+EXP: ${playerExp}
+次のレベルまで ${(playerLevel + 1) ** 2 - playerExp}exp
+
+${battleField}で戦闘中！
+${itemComment}
+プレイヤーランクは${rank}位だ！`;
     } else {
       // await deleteInBattle(PlayerInBattle.channelId);
     }
