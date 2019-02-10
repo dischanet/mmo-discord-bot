@@ -1,49 +1,56 @@
 const util = require("util");
-module.exports = db => {
-  const dbAll = util.promisify(db.all).bind(db);
-  const dbGet = util.promisify(db.get).bind(db);
-  const dbRun = util.promisify(db.run).bind(db);
+const sqlite3 = require("sqlite3").verbose();
+const db = new sqlite3.Database("mmo.db");
 
-  const getPlayerExp = async userId => {
-    const player = await dbGet(
-      "SELECT experience FROM player WHERE user_id=?",
-      [userId]
-    );
-    if (player) return player.experience;
-    dbRun("INSERT INTO player values( ?, ? )", [userId, 1]);
-    return 1;
-  };
+db.allPromise = util.promisify(db.all).bind(db);
+db.getPromise = util.promisify(db.get).bind(db);
+db.runPromise = util.promisify(db.run).bind(db);
 
-  const getPlayerBattle = async userId => {
-    const result = await dbGet(
-      "SELECT channel_id, player_hp FROM in_battle WHERE user_id=?",
-      [userId]
-    );
-    return result
-      ? { channelId: result.channel_id, playerHp: result.player_hp }
-      : null;
-  };
-
-  const getRank = async userId => {
-    const { rank } = await dbGet(
-      `SELECT (
-          SELECT Count(0) FROM player WHERE player.experience > player1.experience
-          ) + 1 AS rank 
-          FROM player AS player1 WHERE user_id=?`,
-      [userId]
-    );
-    return rank;
-  };
-
-  const getItems = async userId => {
-    const items = await dbAll("SELECT item_id FROM item WHERE user_id=?", [
-      userId
-    ]);
-    return items.map(item => item.item_id);
-  };
-
-  const deleteInBattle = channelId =>
-    dbAll("DELETE FROM in_battle WHERE channel_id=?", [channelId]);
-
-  return { getPlayerExp, getPlayerBattle, getRank, getItems, deleteInBattle };
+db.getPlayerExp = async userId => {
+  const player = await db.getPromise(
+    "SELECT experience FROM player WHERE user_id=?",
+    [userId]
+  );
+  if (player) return player.experience;
+  db.runPromise("INSERT INTO player values( ?, ? )", [userId, 1]);
+  return 1;
 };
+
+db.getPlayerLevel = async userId =>
+  Math.floor(Math.sqrt(await db.getPlayerExp(userId)));
+
+db.getPlayerBattle = async userId => {
+  const result = await db.getPromise(
+    "SELECT channel_id, player_hp FROM in_battle WHERE user_id=?",
+    [userId]
+  );
+  return result
+    ? { channelId: result.channel_id, playerHp: result.player_hp }
+    : null;
+};
+
+// db.addPlayerExp = async (userId, exp) => {};
+
+db.getPlayerRank = async userId => {
+  const { rank } = await db.getPromise(
+    `SELECT (
+        SELECT Count(0) FROM player WHERE player.experience > player1.experience
+        ) + 1 AS rank 
+        FROM player AS player1 WHERE user_id=?`,
+    [userId]
+  );
+  return rank;
+};
+
+db.getPlayerItems = async userId => {
+  const items = await db.allPromise(
+    "SELECT item_id FROM item WHERE user_id=?",
+    [userId]
+  );
+  return items.map(item => item.item_id);
+};
+
+db.deletePlayerFromBattle = channelId =>
+  db.allPromise("DELETE FROM in_battle WHERE channel_id=?", [channelId]);
+
+module.exports = db;
