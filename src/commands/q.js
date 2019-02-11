@@ -22,21 +22,20 @@ const getQuiz = async () => {
     2. ${quizList[1]}
     3. ${quizList[2]}
     4. ${quizList[3]}`,
-    answerNumber: quizList.indexOf(quiz.ans1) + 1,
     answer: quiz.ans1
   };
 };
 
 module.exports = async (client, message, db) => {
-  const { quiz, answerNumber, answer } = await getQuiz();
+  const { quiz, answer } = await getQuiz();
   message.channel.send(quiz);
   const user = message.author;
   const exp = Math.ceil(db.getPlayerLevel(user.id) / 10);
   const filter = m => m.author === user;
   message.channel
     .awaitMessages(filter, { maxMatches: 1, time: 10000, errors: ["time"] })
-    .then(guess => {
-      if (Number(guess.content) === answerNumber) {
+    .then(collected => {
+      if (collected.first().content === answer) {
         // db.addPlayerExp(user.id, exp)
         message.channel.send(`正解だ！${exp}の経験値を得た。`);
       } else {
