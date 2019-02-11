@@ -53,4 +53,49 @@ db.getPlayerItems = async userId => {
 db.deletePlayerFromBattle = channelId =>
   db.promiseAll("DELETE FROM in_battle WHERE channel_id=?", [channelId]);
 
+db.removeFromGuild = async guild => {
+  guild.channels.forEach(async channel => {
+    await db.promseRun("DELETE FROM in_battle WHERE channel_id=?", [
+      channel.id
+    ]);
+    await db.promseRun("DELETE FROM channel_status WHERE channel_id=?", [
+      channel.id
+    ]);
+  });
+};
+
+db.updateBossHp = (channelId, bossHp) =>
+  db.promseRun("UPDATE channel_status SET boss_hp=? WHERE channel_id=?", [
+    bossHp,
+    channelId
+  ]);
+
+db.addPlayerIntoBattle = (channelId, userId, playerHp) =>
+  db.promseRun("INSERT INTO in_battle values(?,?,?)", {
+    channelId,
+    userId,
+    playerHp
+  });
+
+db.removeFromChannel = channelId =>
+  db.promseRun("DELETE FROM in_battle WHERE channel_id=?", [channelId]);
+
+db.getMembersInBattle = channelId =>
+  db.promseAll("SELECT * FROM in_battle WHERE channel_id=?", [channelId]);
+
+db.getBoss = async channelId => {
+  const channelStatus = await db.promiseGet(
+    "SELECT boss_level, boss_hp FROM channel_status WHERE channel_id=?",
+    [channelId]
+  );
+  if (channelStatus) {
+    return {
+      bossLevel: channelStatus.boss_level,
+      bossHp: channelStatus.boss_hp
+    };
+  }
+  db.promiseRun("INSERT INTO channel_status values( ?, 1, 50)", [channelId]);
+  return { bossLevel: 1, bossHp: 50 };
+};
+
 module.exports = db;
