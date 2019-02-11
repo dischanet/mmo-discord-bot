@@ -13,7 +13,7 @@ const shuffle = list => {
 
 const getQuiz = async () => {
   const response = await axios.get(quizApiUrl);
-  const quiz = (await parseString(response.data)).Result.quiz;
+  const quiz = (await parseString(response.data)).Result.quiz[0];
   const quizList = [quiz.ans1, quiz.ans2, quiz.ans3, quiz.ans4];
   shuffle(quizList);
   return {
