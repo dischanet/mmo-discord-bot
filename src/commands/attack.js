@@ -90,7 +90,7 @@ class Battle {
       await this.winProcess();
       this.reply += `\n\n${await this.db.resetBattle(this.channelId, true)}`;
     } else {
-      this.updateBossHp();
+      await this.db.updateBossHp(this.channelId, this.boss.hp);
     }
   }
 
