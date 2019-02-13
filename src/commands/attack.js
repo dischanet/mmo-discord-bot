@@ -77,13 +77,13 @@ class Battle {
 
   async playerAttackProcess() {
     this.boss.hp = this.boss.hp - this.playerAttackDamage;
-    if (this.playerAttack === 0) {
+    if (this.playerAttackDamage === 0) {
       this.reply = `<@${this.userId}>の攻撃！${
-        this.bossName
+        this.boss.name
       }にかわされてしまった...！！`;
     } else {
-      this.reply = `<@${this.userId}>の攻撃！${this.bossName}に\`${
-        this.playerAttack
+      this.reply = `<@${this.userId}>の攻撃！${this.boss.name}に\`${
+        this.playerAttackDamage
       }\`のダメージを与えた！`;
     }
     if (this.win) {
@@ -177,7 +177,7 @@ ${elixirMembers}
 
   async bossAttackProcess() {
     this.reply += `
-- ${this.bossName}のHP:\`${this.boss.hp}\`/${this.boss.level * 10 + 50}`;
+- ${this.boss.name}のHP:\`${this.boss.hp}\`/${this.boss.level * 10 + 50}`;
     this.player.hp = this.player.hp - this.bossAttackDamage;
     if (this.bossAttackDamage === 0) {
       this.reply += `${this.monsterName}の攻撃！<@${
