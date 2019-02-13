@@ -77,6 +77,21 @@ db.getBattleMembers = async channelId => {
   }));
 };
 
+db.addExp = async (userId, exp) => {
+  const currentExp = await db.getPlayerExp(userId);
+  const nextExp = currentExp + exp;
+  const currentLevel = Math.floor(Math.sqrt(currentExp));
+  await db.promiseRun("UPDATE player SET experience=? WHERE user_id=?", [
+    nextExp,
+    userId
+  ]);
+  if (nextExp > (currentLevel + 1) ** 2) {
+    const nextLevel = Math.floor(Math.sqrt(nextExp));
+    return `<@${userId}>はレベルアップした！\`Lv.${currentLevel} -> Lv.${nextLevel}\``;
+  }
+  return "";
+};
+
 db.inBattle = channelId =>
   db.promiseGet("SELECT 0 FROM in_battle WHERE channel_id=?", [channelId]);
 

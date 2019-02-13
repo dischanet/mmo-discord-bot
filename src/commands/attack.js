@@ -131,7 +131,7 @@ class Battle {
         : this.boss.level;
 
     (await this.db.getBattleMembers(this.channelId)).forEach(memberId => {
-      levelUpComments.append(this.db.experience(memberId, exp));
+      levelUpComments.append(this.db.addExp(memberId, exp));
       members += "<@{}> ".format(memberId);
       const p = Math.min(
         (0.02 * this.boss.level * this.boss.level) /
