@@ -19,10 +19,10 @@ class Battle {
     this.boss.level = bossLevel;
     this.boss.hp = bossHp;
 
-    if (this.player.level / this.boss.level > 100) {
-      this.reply = "レベルが高すぎて攻撃できない！";
-      return;
-    }
+    // if (this.player.level / this.boss.level > 100) {
+    //   this.reply = "レベルが高すぎて攻撃できない！";
+    //   return;
+    // }
 
     if (channelsInTransaction.has(this.channelId)) {
       this.reply = "攻撃失敗。ゆっくりコマンドを打ってね。";
