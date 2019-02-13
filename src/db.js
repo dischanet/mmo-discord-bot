@@ -80,6 +80,21 @@ db.getMembersInBattle = async channelId => {
 db.inBattle = channelId =>
   db.promiseGet("SELECT 0 FROM in_battle WHERE channel_id=?", [channelId]);
 
+db.obtainItem = async (userId, itemId) => {
+  const item = await db.promiseGet(
+    "SELECT count FROM item WHERE user_id=? and item_id=?",
+    [userId, itemId]
+  );
+  if (item.count) {
+    await db.promiseRun(
+      "UPDATE item SET count=? WHERE user_id=? and item_id=?",
+      [item.count + 1, userId, itemId]
+    );
+  } else {
+    await db.promiseRun("INSERT INTO item VALUES(?,?,1)", [userId, itemId]);
+  }
+};
+
 db.getBoss = async channelId => {
   const channelStatus = await db.promiseGet(
     "SELECT boss_level, boss_hp FROM channel_status WHERE channel_id=?",
