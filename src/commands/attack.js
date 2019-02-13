@@ -88,7 +88,7 @@ class Battle {
     }
     if (this.win) {
       await this.winProcess();
-      this.reply += await this.db.resetBattle(this.channelId, true);
+      this.reply += `\n\n${await this.db.resetBattle(this.channelId, true)}`;
     } else {
       this.updateBossHp();
     }
