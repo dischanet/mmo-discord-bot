@@ -96,23 +96,24 @@ class Battle {
 
   get playerAttackDamage() {
     if (!this._playerAttackDamage) {
-      if (this.boss.level % monsters.length in [20, 40] && this.rand < 0.1) {
+      const r = Math.random();
+      if (this.boss.level % monsters.length in [20, 40] && r < 0.1) {
         this._playerAttackDamage = 0;
       } else if (
         this.boss.level % monsters.length in [2, 7, 13, 23, 34] &&
-        this.rand < 0.05
+        r < 0.05
       ) {
         this._playerAttackDamage = 0;
-      } else if (this.rand < 0.01) {
+      } else if (r < 0.01) {
         this._playerAttackDamage = 0;
       } else if (this.boss.level % monsters.length in [3, 11, 17, 32, 41]) {
-        const plus = this.rand < 0.96 ? this.rand / 3 + 0.5 : 3;
+        const plus = r < 0.96 ? r / 3 + 0.5 : 3;
         this._playerAttackDamage = Math.round(this.player.level * plus + 10);
       } else if (this.boss.level % 5 === 0) {
-        const plus = this.rand < 0.96 ? this.rand / 2 + 0.8 : 3;
+        const plus = r < 0.96 ? r / 2 + 0.8 : 3;
         this._playerAttackDamage = Math.round(this.player.level * plus + 10);
       } else {
-        const plus = this.rand < 0.96 ? this.rand / 2 + 1 : 3;
+        const plus = r < 0.96 ? r / 2 + 1 : 3;
         this._playerAttackDamage = Math.round(this.player.level * plus + 10);
       }
     }
