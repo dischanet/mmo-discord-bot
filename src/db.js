@@ -66,7 +66,7 @@ db.updatePlayerHp = (userId, playerHp) =>
     playerHp
   ]);
 
-db.getMembersInBattle = async channelId => {
+db.getBattleMembers = async channelId => {
   const members = await db.promiseAll(
     "SELECT * FROM in_battle WHERE channel_id=?",
     [channelId]

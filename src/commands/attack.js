@@ -126,11 +126,11 @@ class Battle {
     let elixirMembers = "";
     let prayMembers = "";
     const exp =
-      this.boss.level % monsters.length == 0
+      this.boss.level % monsters.length === 0
         ? this.boss.level * 5
         : this.boss.level;
 
-    (await this.db.getBattleMembers()).forEach(memberId => {
+    (await this.db.getBattleMembers(this.channelId)).forEach(memberId => {
       levelUpComments.append(this.db.experience(memberId, exp));
       members += "<@{}> ".format(memberId);
       const p = Math.min(
