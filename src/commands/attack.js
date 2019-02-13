@@ -132,22 +132,22 @@ class Battle {
 
     (await this.db.getBattleMembers(this.channelId)).forEach(memberId => {
       levelUpComments.push(this.db.addExp(memberId, exp));
-      members += "<@{}> ".format(memberId);
+      members += `<@${memberId}> `;
       const p = Math.min(
         (0.02 * this.boss.level * this.boss.level) /
           this.db.getPlayerLevel(memberId),
         0.1
       );
       if (this.boss.level % 50 === 0 && Math.random() < p) {
-        elixirMembers += "<@{}> ".format(memberId);
+        elixirMembers += `<@${memberId}> `;
         this.db.obtainItem(memberId, 1);
       }
       if (Math.random() < p) {
         this.db.obtainItem(memberId, 2);
-        fireMembers += "<@{}> ".format(memberId);
+        fireMembers += `<@${memberId}> `;
       }
       if (Math.random() < p * 2) {
-        prayMembers += "<@{}> ".format(memberId);
+        prayMembers += `<@${memberId}> `;
         this.db.obtainItem(memberId, 3);
       }
     });
