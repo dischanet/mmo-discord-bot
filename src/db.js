@@ -1,6 +1,7 @@
 const util = require("util");
 const sqlite3 = require("sqlite3").verbose();
 const db = new sqlite3.Database("mmo.db");
+const monsters = require("./assets/monsters");
 
 db.promiseAll = util.promisify(db.all);
 db.promiseGet = util.promisify(db.get);
@@ -155,6 +156,9 @@ db.resetBattle = async (channelId, levelUp) => {
       : "UPDATE channel_status SET boss_hp=boss_level*10+50 WHERE channel_id=?",
     [channelId]
   );
+  const { bossLevel, bossHp } = await db.getBoss(channelId);
+  const monster = monsters[bossLevel % monsters.length];
+  return `${monster.name}が待ち構えている...！\nLv.${bossLevel}  HP:${bossHp}`;
 };
 
 module.exports = db;
