@@ -106,7 +106,9 @@ db.getBoss = async channelId => {
       bossHp: channelStatus.boss_hp
     };
   }
-  db.promiseRun("INSERT INTO channel_status values( ?, 1, 50)", [channelId]);
+  await db.promiseRun("INSERT INTO channel_status values( ?, 1, 50)", [
+    channelId
+  ]);
   return { bossLevel: 1, bossHp: 50 };
 };
 

@@ -9,6 +9,7 @@ class Battle {
     this.player;
     this.boss;
     this.startSuccess = false;
+    this.reply = "UNEXPECTED ERROR";
   }
 
   async start() {
@@ -65,11 +66,11 @@ class Battle {
   }
 
   async joinBattle() {
-    this.playerHp = this.playerLevel * 5 + 50; // player_max_hp
+    this.player.hp = this.player.level * 5 + 50; // player_max_hp
     await this.db.addPlayerIntoBattle(
       this.channelId,
       this.userId,
-      this.playerHp
+      this.player.hp
     );
   }
 
@@ -105,13 +106,13 @@ class Battle {
         this._playerAttackDamage = 0;
       } else if (this.boss.level % monsters.length in [3, 11, 17, 32, 41]) {
         const plus = this.rand < 0.96 ? this.rand / 3 + 0.5 : 3;
-        this._playerAttackDamage = Math.round(this.playerLevel * plus + 10);
+        this._playerAttackDamage = Math.round(this.player.level * plus + 10);
       } else if (this.boss.level % 5 === 0) {
         const plus = this.rand < 0.96 ? this.rand / 2 + 0.8 : 3;
-        this._playerAttackDamage = Math.round(this.playerLevel * plus + 10);
+        this._playerAttackDamage = Math.round(this.player.level * plus + 10);
       } else {
         const plus = this.rand < 0.96 ? this.rand / 2 + 1 : 3;
-        this._playerAttackDamage = Math.round(this.playerLevel * plus + 10);
+        this._playerAttackDamage = Math.round(this.player.level * plus + 10);
       }
     }
     return this._playerAttackDamage;
@@ -176,25 +177,25 @@ ${elixirMembers}
   async bossAttackProcess() {
     this.reply += `
 - ${this.bossName}のHP:\`${this.boss.hp}\`/${this.boss.level * 10 + 50}`;
-    this.playerHp = this.playerHp - this.bossAttackDamage;
+    this.player.hp = this.player.hp - this.bossAttackDamage;
     if (this.bossAttackDamage === 0) {
       this.reply += `${this.monsterName}の攻撃！<@${
         this.userId
       }>は華麗にかわした！
- - <@${this.userId}>のHP:\`${this.playerHp}\`/${this.playerLevel * 5 + 50}`;
-    } else if (this.playerHp <= 0) {
+ - <@${this.userId}>のHP:\`${this.player.hp}\`/${this.player.level * 5 + 50}`;
+    } else if (this.player.hp <= 0) {
       await this.db.updatePlayerHp(this.userId, 0);
       this.reply += `${this.monsterName}の攻撃！<@${this.userId}>は\`${
         this.bossAttackDamage
       }\`のダメージを受けた。
- - <@${this.userId}>のHP:\`0\`/${this.playerLevel * 5 + 50}
+ - <@${this.userId}>のHP:\`0\`/${this.player.level * 5 + 50}
  <@${this.userId}>はやられてしまった。。。`;
     } else {
-      await this.db.updatePlayerHp(this.userId, this.playerHp);
+      await this.db.updatePlayerHp(this.userId, this.player.hp);
       this.reply += `${this.monsterName}の攻撃！<@${this.userId}>は\`${
         this.bossAttackDamage
       }\`のダメージを受けた。
- - <@${this.userId}>のHP:\`${this.playerHp}\`/${this.playerLevel * 5 + 50}`;
+ - <@${this.userId}>のHP:\`${this.player.hp}\`/${this.player.level * 5 + 50}`;
     }
   }
 
@@ -233,6 +234,8 @@ module.exports = async (client, message, db) => {
         await battle.bossAttackProcess();
       }
     }
+  } catch (e) {
+    battle.reply = e;
   } finally {
     await battle.end();
   }
