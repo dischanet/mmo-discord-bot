@@ -34,10 +34,10 @@ module.exports = async (client, message, db) => {
   const filter = m => m.author === user;
   message.channel
     .awaitMessages(filter, { maxMatches: 1, time: 30000, errors: ["time"] })
-    .then(collected => {
+    .then(async collected => {
       if (collected.first().content === answer) {
-        // db.addPlayerExp(user.id, exp)
-        message.channel.send(`正解だ！${exp}の経験値を得た。（未実装）`);
+        const comment = await db.addExp(user.id, exp);
+        message.channel.send(`正解だ！${exp}の経験値を得た。\n${comment}`);
       } else {
         message.channel.send(`残念！正解は「${answer}」だ。`);
       }
