@@ -62,6 +62,7 @@ class Battle {
       return;
     }
 
+    this.player.hp = playerBattle.playerHp;
     this.startSuccess = true;
   }
 
@@ -235,7 +236,7 @@ module.exports = async (client, message, db) => {
       }
     }
   } catch (e) {
-    battle.reply = e;
+    console.log(e);
   } finally {
     await battle.end();
   }

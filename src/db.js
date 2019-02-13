@@ -51,11 +51,11 @@ db.getPlayerItems = async userId => {
 };
 
 db.addPlayerIntoBattle = (channelId, userId, playerHp) =>
-  db.promiseRun("INSERT INTO in_battle values(?,?,?)", {
+  db.promiseRun("INSERT INTO in_battle values(?,?,?)", [
     channelId,
     userId,
     playerHp
-  });
+  ]);
 
 db.deletePlayerFromBattle = channelId =>
   db.promiseAll("DELETE FROM in_battle WHERE channel_id=?", [channelId]);
