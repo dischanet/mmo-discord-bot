@@ -131,25 +131,25 @@ class Battle {
         ? this.boss.level * 5
         : this.boss.level;
 
-    (await this.db.getBattleMembers(this.channelId)).forEach(memberId => {
-      levelUpComments.push(this.db.addExp(memberId, exp));
-      members += `<@${memberId}> `;
+    (await this.db.getBattleMembers(this.channelId)).forEach(({ userId }) => {
+      levelUpComments.push(this.db.addExp(userId, exp));
+      members += `<@${userId}> `;
       const p = Math.min(
         (0.02 * this.boss.level * this.boss.level) /
-          this.db.getPlayerLevel(memberId),
+          this.db.getPlayerLevel(userId),
         0.1
       );
       if (this.boss.level % 50 === 0 && Math.random() < p) {
-        elixirMembers += `<@${memberId}> `;
-        this.db.obtainItem(memberId, 1);
+        elixirMembers += `<@${userId}> `;
+        this.db.obtainItem(userId, 1);
       }
       if (Math.random() < p) {
-        this.db.obtainItem(memberId, 2);
-        fireMembers += `<@${memberId}> `;
+        this.db.obtainItem(userId, 2);
+        fireMembers += `<@${userId}> `;
       }
       if (Math.random() < p * 2) {
-        prayMembers += `<@${memberId}> `;
-        this.db.obtainItem(memberId, 3);
+        prayMembers += `<@${userId}> `;
+        this.db.obtainItem(userId, 3);
       }
     });
 
@@ -163,7 +163,7 @@ class Battle {
       prayMembers += "は`祈りの書`を手に入れた！";
     }
     const LevelUpComment = levelUpComments.join("\n");
-    this.reply += `\n${this.monsterName}を倒した！
+    this.reply += `\n${this.monster.name}を倒した！
 ${members}は\`${exp}\`の経験値を得た。
 ${LevelUpComment}
 ${fireMembers}
@@ -181,20 +181,20 @@ ${elixirMembers}
 - ${this.boss.name}のHP:\`${this.boss.hp}\`/${this.boss.level * 10 + 50}`;
     this.player.hp = this.player.hp - this.bossAttackDamage;
     if (this.bossAttackDamage === 0) {
-      this.reply += `${this.monsterName}の攻撃！<@${
+      this.reply += `${this.monster.name}の攻撃！<@${
         this.userId
       }>は華麗にかわした！
  - <@${this.userId}>のHP:\`${this.player.hp}\`/${this.player.level * 5 + 50}`;
     } else if (this.player.hp <= 0) {
       await this.db.updatePlayerHp(this.userId, 0);
-      this.reply += `${this.monsterName}の攻撃！<@${this.userId}>は\`${
+      this.reply += `${this.monster.name}の攻撃！<@${this.userId}>は\`${
         this.bossAttackDamage
       }\`のダメージを受けた。
  - <@${this.userId}>のHP:\`0\`/${this.player.level * 5 + 50}
  <@${this.userId}>はやられてしまった。。。`;
     } else {
       await this.db.updatePlayerHp(this.userId, this.player.hp);
-      this.reply += `${this.monsterName}の攻撃！<@${this.userId}>は\`${
+      this.reply += `${this.monster.name}の攻撃！<@${this.userId}>は\`${
         this.bossAttackDamage
       }\`のダメージを受けた。
  - <@${this.userId}>のHP:\`${this.player.hp}\`/${this.player.level * 5 + 50}`;
