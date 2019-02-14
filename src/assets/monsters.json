@@ -348,12 +348,5 @@
     "dmg_co": 1,
     "quote": "...",
     "img": "flea.png"
-  },
-  {
-    "name": "【レア】キケロ",
-    "hp_co": 50,
-    "dmg_co": 1,
-    "quote": "...",
-    "img": "cicero.png"
   }
 ]
