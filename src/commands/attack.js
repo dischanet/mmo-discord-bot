@@ -163,7 +163,7 @@ class Battle {
       prayMembers += "は`祈りの書`を手に入れた！";
     }
     const LevelUpComment = levelUpComments.join("\n");
-    return `${this.monsterName}を倒した！
+    this.reply += `\n${this.monsterName}を倒した！
 ${members}は\`${exp}\`の経験値を得た。
 ${LevelUpComment}
 ${fireMembers}
