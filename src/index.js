@@ -1,8 +1,7 @@
 const Discord = require("discord.js");
 const client = new Discord.Client();
 
-const sqlite3 = require("sqlite3").verbose();
-const db = new sqlite3.Database("mmo.db");
+const db = require("./db");
 
 client.on("ready", () => {
   console.log(`Logged in as ${client.user.tag}!`);

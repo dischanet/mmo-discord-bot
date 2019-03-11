@@ -1,68 +1,66 @@
-const defaultHelp = `MMOくんはみんなでボスを倒して行くRPGです。
-
-help    このメッセージを表示します
-attack  攻撃する
-status  自分のステータスを確認する
-inquiry チャンネルのバトルの状態を確認する
-reset   戦いをやり直す
-t       四字熟語トレーニングをする
-q       クイズトレーニングをする
-item    アイテムを使う
-ranking 上位10サーバーのランキングを表示する`;
-const helpHelp = `ヘルプメッセージを表示します。`;
-const attackHelp = `チャンネル内の敵に攻撃します。敵の反撃を受けます。`;
-const statusHelp = `自分のステータスを確認する。`;
-const inquiryHelp = `チャンネルのバトルの状態を確認する。`;
-const resetHelp = `戦いをやり直す。`;
-const tHelp = `四字熟語の読み方をひらがなで入力し、正解すると経験値がもらえるぞ。`;
-const qHelp = `クイズに解答し、正解すると経験値がもらえるぞ。`;
-const itemHelp = `**アイテムの説明**
-    エリクサー:チャンネルの全員を全回復させる。
-    ファイアボールの書:遠隔攻撃する。
-    祈りの書:仲間一人を復活させる。
-    サポーターの証:MMOくんをサポートしてくれた証だ！`;
-const rankingHelp = `上位10サーバーのランキングを表示する。`;
-// eslint-disable-next-line no-unused-vars
-module.exports = (client, message, db) => {
-  const argument = message.content.split(" ");
-  if (argument.length === 2) {
-    let helpContent;
-    switch (argument[1]) {
-      case "help":
-        helpContent = helpHelp;
-        break;
-      case "attack":
-        helpContent = attackHelp;
-        break;
-      case "status":
-        helpContent = statusHelp;
-        break;
-      case "inquiry":
-        helpContent = inquiryHelp;
-        break;
-      case "reset":
-        helpContent = resetHelp;
-        break;
-      case "t":
-        helpContent = tHelp;
-        break;
-      case "q":
-        helpContent = qHelp;
-        break;
-      case "item":
-        helpContent = itemHelp;
-        break;
-      case "ranking":
-        helpContent = rankingHelp;
-        break;
-      default:
-        helpContent = "このコマンドは存在しません。";
-        break;
-    }
-    const helpComment = `\`\`\`!!${argument[1]}
-  ${helpContent}\`\`\``;
-    message.channel.send(helpComment);
-  } else {
-    message.channel.send(defaultHelp);
+const baseHelp = {
+  embed: {
+    title: "Botの説明  :question:",
+    description: "MMOくんはみんなでボスを倒して行くRPGです。",
+    fields: [
+      { name: "help", value: "このメッセージを表示する" },
+      { name: "attack", value: "モンスターに攻撃する" },
+      { name: "status", value: "自分のステータスを確認する" },
+      { name: "inquiry", value: "チャンネルのバトルの状態を確認する" },
+      { name: "reset", value: "戦いをやり直す" },
+      { name: "t", value: "四字熟語トレーニングをする" },
+      { name: "q", value: "クイズトレーニングをする" },
+      { name: "item", value: "アイテムを使う" },
+      { name: "ranking", value: "上位10サーバーのランキングを表示する" }
+    ],
+    footer: { text: "詳細は 「!!help コマンド名」で表示できます" },
+    color: 0xf5a623
   }
 };
+
+const commandDetails = {
+  help: "ヘルプメッセージを表示します。",
+  attack: "チャンネル内の敵に攻撃します。敵の反撃を受けます。",
+  status: "自分のステータスを確認する。",
+  inquiry: "チャンネルのバトルの状態を確認する。",
+  reset: "戦いをやり直す。",
+  t: "四字熟語の読み方をひらがなで入力し、正解すると経験値がもらえるぞ。",
+  q: "クイズに解答し、正解すると経験値がもらえるぞ。",
+  item: "itemを使う\nアイテム一覧",
+  ranking: "上位10サーバーのランキングを表示する"
+};
+
+const itemList = [
+  { name: "エリクサー", value: "チャンネルの全員を全回復させる。" },
+  { name: "ファイアボールの書", value: "遠隔攻撃する。" },
+  { name: "祈りの書", value: "仲間一人を復活させる。" },
+  { name: "サポーターの証", value: "MMOくんをサポートしてくれた証だ！" }
+];
+
+const eachCommandHelp = askedCommand => {
+  const embed = {
+    title: `${askedCommand}の詳細`,
+    description: commandDetails[askedCommand],
+    color: 0x50e3c2
+  };
+  if (askedCommand === "item") {
+    embed.fields = itemList;
+  }
+  return { embed };
+};
+
+const help = messageContent => {
+  const args = messageContent.split(" ");
+  if (args.length < 2) {
+    return baseHelp;
+  }
+  const askedCommand = args[1];
+  if (commandDetails.hasOwnProperty(askedCommand)) {
+    return eachCommandHelp(askedCommand);
+  }
+  return `「${askedCommand}」というコマンドは存在しません。
+  \`!!help\`で確認してください。`;
+};
+
+module.exports = (client, message) =>
+  message.channel.send(help(message.content));
