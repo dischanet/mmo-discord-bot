@@ -1,4 +1,4 @@
-const training_set = require("training.json");
+const training_set = require("../assets/training.json");
 
 module.exports = async (client, message, db) => {
   const user = message.author;
