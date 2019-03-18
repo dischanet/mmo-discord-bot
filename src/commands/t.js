@@ -3,7 +3,7 @@ const training_set = require("training.json");
 module.exports = async (client, message, db) => {
   const user = message.author;
 
-  const qId = Math.floor(Math.random() * (619 + 1));
+  const qId = Math.floor(Math.random() * (training_set.length + 1));
   const quiz = training_set[qId];
   const question = quiz[0];
   const answer = quiz[1];
