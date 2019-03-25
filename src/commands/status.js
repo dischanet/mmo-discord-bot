@@ -40,7 +40,7 @@ const statusMessage = async (client, message, db) => {
 
   return {
     embed: {
-      title: `<@${userId}> のステータス`,
+      title: `${message.author}のステータス`,
       url: message.author.avatarURL,
       color: 7506394,
       timestamp: new Date(),
