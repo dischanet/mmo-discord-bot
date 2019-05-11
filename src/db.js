@@ -7,6 +7,11 @@ db.promiseAll = util.promisify(db.all);
 db.promiseGet = util.promisify(db.get);
 db.promiseRun = util.promisify(db.run);
 
+db.getRanking = () =>
+  db.promiseAll(
+    "SELECT channel_id, boss_level FROM channel_status ORDER BY boss_level DESC"
+  );
+
 db.getPlayerExp = async userId => {
   const player = await db.promiseGet(
     "SELECT experience FROM player WHERE user_id=?",
@@ -36,7 +41,7 @@ db.getPlayerRank = async userId => {
   const { rank } = await db.promiseGet(
     `SELECT (
         SELECT Count(0) FROM player WHERE player.experience > player1.experience
-        ) + 1 AS rank 
+        ) + 1 AS rank
         FROM player AS player1 WHERE user_id=?`,
     [userId]
   );
